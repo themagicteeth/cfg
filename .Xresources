@@ -17,7 +17,6 @@ URxvt.allow_bold:           false
 
 URxvt*font:                 xft:SauceCodePro Nerd Font:style=Regular, \
                             xft:DejaVu Sans Mono:style=Book:antialias=false:size=12
-                            /* xft:Source Code Pro:size=12,style=Light, \ */
 
 
 URxvt*letterSpace:          -1
