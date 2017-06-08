@@ -1,6 +1,0 @@
-# GIMP gimp-bucket-fill-tool options
-
-(foreground (color-rgb 0.913725 0.909804 0.901961))
-(pattern "Pine")
-
-# end of gimp-bucket-fill-tool options
