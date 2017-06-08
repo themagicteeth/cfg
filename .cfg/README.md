@@ -1,4 +1,4 @@
-Prerecquisites
+Prerequisites
 ==================================================================
 The following was written using an Arch Linux system, so the intrsuctions
 will be written using Arch tools such as pacman and using the Arch linux
@@ -58,6 +58,15 @@ colors, and certain applications. Follow the instructions below to install
 Xresources:
 
     sudo pacman -S xorg-xrdb
+
+A few basic settings to add to the top of the `~/.Xresources` file:
+
+    ! Xft settings
+    Xft.dpi:                    96
+    Xft.antialias:              true
+    Xft.rgba:                   rgb
+    Xft.hinting:                true
+    Xft.hintstyle:              hintslight
 
 A very important command to know when working with .Xreources is how to refresh it.
 Running the command below and restarting the terminal will allow you to see any changes
@@ -159,7 +168,7 @@ the output to the themes directory:
 
 **Resources:**    
 [i3-style Website](https://dubstepdish.com/blog/2013/11/06/introducing-i3-style/)    
-[Gihub - i3-style](https://github.com/acrisci/i3-style)    
+[Github - i3-style](https://github.com/acrisci/i3-style)    
 [Github - Base-16 for i3](https://github.com/khamer/base16-i3)    
 
 Base-16
@@ -187,7 +196,7 @@ base-16 themes, Base-16 Shell is used. To install, follow the instructions:
 
 Now that the repository is cloned and setup in the config folder, it is time add a few lines
 to the .bashrc so that it can be used from the command line. Place the following in
-your .bashrc:
+your `~/.bashrc` and/or `~/.zshrc`:
 
     BASE16_SHELL=$HOME/.config/base16-shell/
     [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -214,8 +223,8 @@ Base-16 for Xresources
 This will generate a colorscheme for Xresources to be used by many applications
 across the system. It not mandatory to use the commands found on the Github.
 It may be easier to just go to [the directory](https://github.com/chriskempson/base16-xresources/tree/master/xresources)
-where the color schemes are and copy paste them into .Xresources yourself.    
-    
+where the color schemes are and copy paste them into .Xresources yourself.
+
 Otherwise this command may be ran to automatically put the colorscheme in .Xresources, just use
 the names referenced in the directory mentioned above (base16-default-dark-256.Xresources is
 used as an example):
@@ -259,12 +268,49 @@ it will set `mod+d` to be used to launch Rofi:
 
     bindsym $mod+d exec rofi -show run
 
+It is best to add the configuration options to the `~/.Xresources` file, a few useful settings
+are below, and a comprehensive list may be found [here](https://gist.github.com/PrimordialHelios/f6184fe7868835ad65d3).     
+    
+To make fullscreen with a fake background of your desktop (fake transparency):
+
+    rofi.fullscreen: true
+    rofi.fake-transparency: true
+    rofi.fake-background: screenshot
+
+Set the font (I use Roboto):
+
+    rofi.font: Roboto Light 15
+
+Set the line-height and number of results:
+
+    rofi.lines: 3
+    rofi.eh: 2
+
+Adjust the border width and the padding, good for centering the menu:
+
+    rofi.bw: 100
+    rofi.padding: 100 100
+
+And finally set a colorscheme. There are a few options for this, you may use 
+[Base-16 Builder](https://github.com/base16-builder/base16-builder) the official
+[Theme Generator](https://davedavenport.github.io/rofi/p11-Generator.html), or you can
+create your own on sites such as [Terminal.sexy](https://terminal.sexy/), you can
+even use the colors used when setting the base 16 colorscheme. The argb values below set
+transparency, you can also use plain hex color codes.
+
+    rofi.color-enabled: true
+    rofi.color-window: argb:d12c3e50, argb:0e74c3c, argb:02c3e50
+    rofi.color-normal: argb:02c3e50, #e0e0e0, argb:02c3e50, argb:d79b59b6, #e0e0e0
+    rofi.color-active: argb:02c3e50, #3498db, argb:4a2c3e50, argb:d13498db, #e0e0e0
+    rofi.color-urgent: argb:02c3e50, #e74c3c, argb:5f2c3e50, argb:cce74c3c, #e0e0e0
+
 **Resources:**    
 [Arch Wiki - Rofi](https://wiki.archlinux.org/index.php/Rofi)    
 [Rofi Theme Generator](https://davedavenport.github.io/rofi/p11-Generator.html)    
 [Rofi Themes Github](https://github.com/DaveDavenport/rofi-themes)    
 [Rofi Website](https://github.com/DaveDavenport/rofi)    
 [Rofi Config Options](https://gist.github.com/PrimordialHelios/f6184fe7868835ad65d3)    
+[Terminal.sexy](https://terminal.sexy/)    
 
 Compton
 =========================================================================
@@ -272,7 +318,6 @@ Compton is a standalone composite manager. It adds things like shadows to
 windows.
 
     sudo pacman -S compton
-
 
 **Resources:**    
 [Arch Wiki - Compton](https://wiki.archlinux.org/index.php/Compton)    
