@@ -1,0 +1,185 @@
+#!/usr/bin/env node
+'use strict';
+
+var _meow = require('meow');
+
+var _meow2 = _interopRequireDefault(_meow);
+
+var _fsPromise = require('fs-promise');
+
+var _fsPromise2 = _interopRequireDefault(_fsPromise);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _ = require('./');
+
+var _logger = require('./logger');
+
+var _logger2 = _interopRequireDefault(_logger);
+
+var _open = require('open');
+
+var _open2 = _interopRequireDefault(_open);
+
+var _updateNotifier = require('update-notifier');
+
+var _updateNotifier2 = _interopRequireDefault(_updateNotifier);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
+
+_asyncToGenerator(function* () {
+  let resolvePath = (() => {
+    var _ref2 = _asyncToGenerator(function* (path) {
+      let stat = yield _fsPromise2.default.lstat(path);
+      if (stat.isFile()) {
+        return path;
+      }
+    });
+
+    return function resolvePath(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  })();
+
+  const options = `Usage:
+    $ base16-builder <-s scheme> <-t template> <-b light|dark>
+    $ base16-builder <-s scheme path> <-t template path>
+
+  Options:
+    -s, --scheme        Build theme using this color scheme
+    -t, --template      Build theme using this template
+    -b, --brightness    Build theme using this brightness
+
+  Commands:
+    ls schemes      Opens an offline web page with a list of scheme names and their colors
+    ls templates    Writes a list of available templates to the terminal
+
+  Examples:
+    $ base16-builder -s oceanicnext -t rxvt-unicode -b dark
+    $ base16-builder --scheme oceanicnext --template rxvt-unicode --brightness dark
+    $ base16-builder --scheme schemes/customScheme.yml --template templs/customTempl.ejs
+    $ base16-builder ls schemes
+    $ base16-builder ls templates`;
+
+  const cli = (0, _meow2.default)(options, {
+    alias: {
+      h: 'help',
+      t: 'template',
+      s: 'scheme',
+      b: 'brightness'
+    }
+  });
+
+  (0, _updateNotifier2.default)({ pkg: cli.pkg }).notify();
+
+  if (cli.input[0] === 'ls' && cli.input[1] === 'schemes') {
+    const schemesHtmlPath = _path2.default.join(__dirname, 'index.html');
+    (0, _open2.default)(schemesHtmlPath, function (err) {
+      if (err) {
+        _logger2.default.error(`An unexpected error occured while opening schemes preview: ${ JSON.stringify(err) }`);
+      } else {
+        _logger2.default.log(`Your browser window should have just loaded this .html file: file://${ schemesHtmlPath }`);
+      }
+    });
+    return;
+  }
+
+  if (cli.input[0] === 'ls' && cli.input[1] === 'templates') {
+    try {
+      const dirPath = _path2.default.join(__dirname, `db/templates`);
+      const templatePaths = yield _fsPromise2.default.readdir(dirPath);
+      templatePaths.forEach(function (fileName) {
+        return _logger2.default.log(fileName);
+      });
+    } catch (err) {
+      _logger2.default.error(err);
+    }
+    return;
+  }
+
+  if (Object.keys(cli.flags).length === 0) {
+    cli.showHelp();
+    return;
+  }
+
+  var _cli$flags = cli.flags;
+  let templNameOrPath = _cli$flags.template;
+  let schemeNameOrPath = _cli$flags.scheme;
+  let brightness = _cli$flags.brightness;
+
+
+  if (!templNameOrPath || !schemeNameOrPath) {
+    _logger2.default.error('fatal: You did not supply valid arguments. Run \'base16-builder --help\' for guidance.');
+    return;
+  }
+
+  schemeNameOrPath = schemeNameOrPath.toLowerCase();
+  templNameOrPath = templNameOrPath.toLowerCase();
+
+  let templPath;
+  try {
+    templPath = yield resolvePath(templNameOrPath);
+  } catch (error) {}
+
+  if (!templPath) {
+    if (!brightness) {
+      _logger2.default.error('fatal: You did not supply valid arguments. Run \'base16-builder --help\' for guidance.');
+      return;
+    }
+
+    brightness = brightness.toLowerCase();
+    if (brightness !== 'light' && brightness !== 'dark') {
+      _logger2.default.error('fatal: You did not supply valid arguments. The value for brightness must be \'light\' or \'dark\'.');
+      return;
+    }
+
+    templPath = _path2.default.join(__dirname, `db/templates/${ templNameOrPath }/${ brightness }.ejs`);
+  }
+
+  let schemePath;
+  try {
+    schemePath = yield resolvePath(schemeNameOrPath);
+  } catch (error) {}
+
+  if (!schemePath) {
+    schemePath = _path2.default.join(__dirname, `db/schemes/${ schemeNameOrPath }.yml`);
+  }
+
+  let templ;
+  try {
+    templ = yield _fsPromise2.default.readFile(templPath, 'utf8');
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      _logger2.default.error(`Could not find template ${ templNameOrPath }.`);
+      return;
+    }
+    _logger2.default.error(`An unexpected error occured while loading the template: ${ JSON.stringify(err) }`);
+    return;
+  }
+
+  let scheme;
+  try {
+    scheme = yield _fsPromise2.default.readFile(schemePath, 'utf8');
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      _logger2.default.error(`Could not find scheme ${ schemeNameOrPath }.`);
+    } else {
+      _logger2.default.error(`An unexpected error occured while loading the scheme: ${ JSON.stringify(err) }`);
+    }
+    return;
+  }
+
+  let theme;
+  try {
+    theme = (0, _.buildTheme)(scheme, templ);
+  } catch (err) {
+    _logger2.default.error(`An unexpected error occured while building your theme: ${ JSON.stringify(err) }`);
+    return;
+  }
+
+  _logger2.default.log(theme);
+})();
