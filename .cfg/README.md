@@ -1,4 +1,31 @@
 Prerequisites
+Xorg
+    Xinit
+    Xresources
+i3
+    i3blocks
+    i3style
+urxvt
+    tebbedex
+zsh
+    ohmyzsh
+base16
+    base16shell
+    base16xresources
+    base16builder
+rofi
+compton
+dunst
+nerdfonts
+even better ls
+feh
+nitrogen
+scrot
+color terminal
+
+
+
+Prerequisites
 ==================================================================
 The following was written using an Arch Linux system, so the intrsuctions
 will be written using Arch tools such as pacman and using the Arch linux
@@ -46,6 +73,13 @@ but everyone else has it:
             [ -x "$f" ] && . "$f"
         done
         unset f
+    fi
+
+To automatically start the X server on login add the following to
+`~/.bash_profile` and/or `~/.zprofile`:
+
+    if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+      exec startx
     fi
 
 **Resources:**    
@@ -147,7 +181,7 @@ the default i3 status bar. Install with the following command:
     sudo pacman -S i3blocks
 
 i3-style (optional)
------------------------------------------------------------------------------
+http://slackbook.org/html/x-window-system-xinitrc.html-----------------------------------------------------------------------------
 i3-style is used to easily change the colorscheme of i3 to one of
 the included colorschemes. To use it npm must first be installed.
 To install i3-style follow the instructions:
@@ -331,6 +365,14 @@ and customizable. To install dunst follow the instructions:
 
     sudo pacman -S dunst
 
+I use base16 builder to make the dunst colorscheme. Follow the instructions to
+create one:
+
+    base16-builder -s default -t dunst -b dark > dunst
+
+Once complete open up the `dunst` file that was created and copy the contents
+to `~/.config/dunst/dunstrc`, which is the dunst config file.
+
 **Resources:**    
 [Dunst Website](http://knopwob.org/dunst/index.html)    
 [Arch Wiki - Dunst](https://wiki.archlinux.org/index.php/Dunst)    
@@ -352,6 +394,7 @@ suggested tweaks to add:
 **Resources:**    
 [AUR rxvt Patched](https://wiki.archlinux.org/index.php/Color_output_in_console)    
 [Arch Wiki - rxvt-unicode](https://wiki.archlinux.org/index.php/rxvt-unicode)    
+[URxvt Xresource Options](http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod#RESOURCES)
 
 Tabbedex
 ---------------------------------------------------------------------------
@@ -366,8 +409,7 @@ There are a few options to be configured for tabbedex. Open `~/.Xresources` and
 add the following lines:
 
     URxvt.perl-ext-common:      default,matcher,tabbedex
-
-    URxvt.tabbed.new-button:    yes 
+    URxvt.tabbed.new-button:    yes
     URxvt.tabbed.autohide:      yes
     URxvt.tabbed.tabbar-fg:     14
     URxvt.tabbed.tabbar-bg:     0
@@ -481,7 +523,7 @@ Then change the default to the path of zsh:
 [Users Guide to Z-Shell](http://zsh.sourceforge.net/Guide/zshguide02.html)    
 [Changing Your Default Shell](https://wiki.archlinux.org/index.php/Command-line_shell#Changing_your_default_shell)    
 
-Oh My ZSH
+Oh My ZSH (optional)
 --------------------------------------------------------------------------
 Oh my ZSH is a set of plugins and enhancements to the ZSH shell. To install
 run the curl command:
