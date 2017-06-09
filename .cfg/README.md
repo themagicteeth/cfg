@@ -13,6 +13,7 @@ base16
     base16shell
     base16xresources
     base16builder
+vim/neovim
 rofi
 compton
 dunst
@@ -20,7 +21,8 @@ nerdfonts
 even better ls
 feh
 nitrogen
-scrot
+scrot/maim/imagemagick
+nm-applet
 color terminal
 
 
@@ -82,6 +84,7 @@ To automatically start the X server on login add the following to
       exec startx
     fi
 
+
 **Resources:**    
 [Arch Wiki - Xinit](https://wiki.archlinux.org/index.php/Xinitrc)    
 
@@ -132,6 +135,11 @@ To view the default i3 configuration (on Arch):
 
     vim ~/.config/i3/config
 
+I change the font to Roboto, but it can be changed to whatever you
+would like:
+
+    font pango:Roboto Regular 9
+
 A couple settings that are not in the default i3 configuration will be listed below,
 The first enables the scratch pad, a very useful way to access windows on any workspace.
 Simply press `mod+Shift+-` to move a window to the scratchpad and then on any workspace 
@@ -164,7 +172,7 @@ screen, to enable this as the default add the following to your config file:
 After making changes to the configuration file, to restart i3 without logging out use the following
 keybind:
 
-    mod+Shift+c
+    mod+Shift+r
 
 **Resources:**    
 [i3 Documentation](https://i3wm.org/docs/)    
@@ -181,7 +189,7 @@ the default i3 status bar. Install with the following command:
     sudo pacman -S i3blocks
 
 i3-style (optional)
-http://slackbook.org/html/x-window-system-xinitrc.html-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 i3-style is used to easily change the colorscheme of i3 to one of
 the included colorschemes. To use it npm must first be installed.
 To install i3-style follow the instructions:
@@ -210,6 +218,7 @@ Base-16
 Base 16 is a set of colorschemes that can be applied to a range of applications.
 The first step is to go [here](https://chriskempson.github.io/base16/) and take
 some time to choose a color scheme you like. Be sure to remember the name of it.
+I chose base16-flat256.
 
 There are tools to create Base-16 colorschemes for applications, and there are
 also repositories with premade configurations for each theme. These will be
@@ -257,7 +266,57 @@ Base-16 for Xresources
 This will generate a colorscheme for Xresources to be used by many applications
 across the system. It not mandatory to use the commands found on the Github.
 It may be easier to just go to [the directory](https://github.com/chriskempson/base16-xresources/tree/master/xresources)
-where the color schemes are and copy paste them into .Xresources yourself.
+where the color schemes are and copy paste them into .Xresources yourself. For example
+the theme I used:
+
+    ! Base16 Flat
+    #define base00 #2C3E50
+    #define base01 #34495E
+    #define base02 #7F8C8D
+    #define base03 #95A5A6
+    #define base04 #BDC3C7
+    #define base05 #e0e0e0
+    #define base06 #f5f5f5
+    #define base07 #ECF0F1
+    #define base08 #E74C3C
+    #define base09 #E67E22
+    #define base0A #F1C40F
+    #define base0B #2ECC71
+    #define base0C #1ABC9C
+    #define base0D #3498DB
+    #define base0E #9B59B6
+    #define base0F #be643c
+
+    *.foreground:   base05
+    #ifdef background_opacity
+    *.background:   [background_opacity]base00
+    #else
+    *.background:   base00
+    #endif
+    *.cursorColor:  base05
+
+    *.color0:       base00
+    *.color1:       base08
+    *.color2:       base0B
+    *.color3:       base0A
+    *.color4:       base0D
+    *.color5:       base0E
+    *.color6:       base0C
+    *.color7:       base05
+    *.color8:       base03
+    *.color9:       base08
+    *.color10:      base0B
+    *.color11:      base0A
+    *.color12:      base0D
+    *.color13:      base0E
+    *.color14:      base0C
+    *.color15:      base07
+    *.color16:      base09
+    *.color17:      base0F
+    *.color18:      base01
+    *.color19:      base02
+    *.color20:      base04
+    *.color21:      base06
 
 Otherwise this command may be ran to automatically put the colorscheme in .Xresources, just use
 the names referenced in the directory mentioned above (base16-default-dark-256.Xresources is
@@ -269,6 +328,49 @@ used as an example):
 **Resources:**    
 [Github - Base-16 for Xresources](https://github.com/chriskempson/base16-xresources)    
 
+Use .Xresources for i3 Colorscheme
+----------------------------------------------------------------------------
+Once the colorscheme is set up in `~/.Xresources` it is handy to set i3
+to use the same ones, so that when it is updated i3 will also be updated. In
+order to do this add the following to `~/.config/i3/config`:
+
+    set_from_resource $base00 color0  #000000
+    set_from_resource $base01 color18 #000000
+    set_from_resource $base02 color19 #000000
+    set_from_resource $base03 color8  #000000
+    set_from_resource $base04 color20 #000000
+    set_from_resource $base05 color7  #000000
+    set_from_resource $base06 color21 #000000
+    set_from_resource $base07 color15 #000000
+    set_from_resource $base08 color9  #000000
+    set_from_resource $base09 color16 #000000
+    set_from_resource $base0A color3  #000000
+    set_from_resource $base0B color10 #000000
+    set_from_resource $base0C color6  #000000
+    set_from_resource $base0D color4  #000000
+    set_from_resource $base0E color13 #000000
+    set_from_resource $base0F color17 #000000
+
+Now i3 will use the colors from `.Xresources`, provided that the variables
+are used when defining the colors of UI elements. Such as the following:
+
+    # Property Name         Border  | BG Text | Indicator | Child | Border
+    client.focused          $base0D   $base0D   $base00    $base0D  $base0D
+    client.focused_inactive $base01   $base01   $base05    $base03  $base01
+    client.unfocused        $base01   $base00   $base05    $base01  $base01
+    client.urgent           $base08   $base08   $base00    $base08  $base08
+    client.placeholder      $base00   $base00   $base05    $base00  $base00
+    client.background       $base07
+
+Note that I first created a theme using i3 builder then replaced the hex colors
+that they had and put the newly created variables matching them in their place.
+So when changing the `.Xresource` colors i3 should be restyled to match them without
+having to change anything. These variables can also be used in other places throughout
+the i3 config file.
+
+**Resources**:
+[Reddit - You Can Now use Xresources in i3](https://www.reddit.com/r/unixporn/comments/4if9xc/i3_you_can_now_use_x_resources_in_i3/)    
+[Github - Using i3 config with Xresources](https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/config)    
 
 Base-16 Builder (optional)
 --------------------------------------------------------------------------
@@ -353,6 +455,11 @@ windows.
 
     sudo pacman -S compton
 
+To automatically start compton on the start of i3, add the following to
+`~/.config/i3/config` (the i3 configuration file):
+
+    exec --no-startup-id compton
+
 **Resources:**    
 [Arch Wiki - Compton](https://wiki.archlinux.org/index.php/Compton)    
 [Github - Compton](https://github.com/chjj/compton)    
@@ -371,7 +478,12 @@ create one:
     base16-builder -s default -t dunst -b dark > dunst
 
 Once complete open up the `dunst` file that was created and copy the contents
-to `~/.config/dunst/dunstrc`, which is the dunst config file.
+to `~/.config/dunst/dunstrc`, which is the dunst config file.   
+    
+To automatically start dunst on the start of i3, add the following to the
+i3 configuration file, `~/.config/i3/config`:
+
+    exec --no-startup-id dunst &
 
 **Resources:**    
 [Dunst Website](http://knopwob.org/dunst/index.html)    

@@ -15,7 +15,7 @@ URxvt.internalBorder:       10
 
 URxvt.allow_bold:           false
 
-URxvt*font:                 xft:SauceCodePro Nerd Font:style=Regular, \
+URxvt*font:                 xft:SauceCodePro Nerd Font:style=Regular:size=10, \
                             xft:DejaVu Sans Mono:style=Book:antialias=false:size=12
 
 
@@ -38,7 +38,7 @@ URxvt.scrollTtyKeypress:    true
 
 URxvt.perl-ext-common:      default,matcher,tabbedex
 
-URxvt.tabbed.new-button:    yes 
+URxvt.tabbed.new-button:    no
 URxvt.tabbed.autohide:      yes
 URxvt.tabbed.tabbar-fg:     14
 URxvt.tabbed.tabbar-bg:     0
