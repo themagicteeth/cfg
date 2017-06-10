@@ -282,12 +282,39 @@ the i3 config file.
 [Github - Using i3 config with Xresources](https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/config)    
 
 ## Status Bar
+### Polybar
+    git clone https://aur.archlinux.org/polybar-git.git
+    cd polybar-git
+    makepkg -sri
+    
+    
+
 ### i3blocks
 Extensible via shell scripts. Adds a lot of functionality to
 the default i3 status bar. Install with the following command:
 
     sudo pacman -S i3blocks
+ 
+ Refer to the [i3blocks.conf example](https://github.com/vivien/i3blocks/blob/master/i3blocks.conf)
+ on the Github for an example configuration. To quickly get a bar setup follow the directions below. 
+ We first need to install font-awesome for the icons:
+ 
+    sudo pacman -S ttf-font-awesome
+
+Then we can create the config file:
+
+    touch /.config/i3/i3blocks.conf
+    vim ~/.config/i3/i3blocks.conf
+
+Once the file is open for editing paste the following within:
+
+
     
+ 
+**Resources:**  
+[Github - i3blocks](https://github.com/vivien/i3blocks)
+[Github - i3blocks.conf example](https://github.com/vivien/i3blocks/blob/master/i3blocks.conf)  
+
 ### Polybar
     
 
