@@ -20,15 +20,15 @@ with the following command:
 
     sudo pacman -S git curl npm
     
-# Base-16
+## Select a Base-16 Colorscheme
 Base 16 is a set of colorschemes that can be applied to a range of applications.
 The first step is to go [here](https://chriskempson.github.io/base16/) and take
 some time to choose a color scheme you like. Be sure to remember the name of it.
-I chose base16-flat256.
+I chose base16-flat256. This colorscheme will be the one used throught the setup.
 
 There are tools to create Base-16 colorschemes for applications, and there are
 also repositories with premade configurations for each theme. These will be
-references with their respective applications throughout the guide.
+referenced with their respective applications throughout the guide.
 
 **Resources:**    
 [Base-16 Website](http://chriskempson.com/projects/base16)    
@@ -277,7 +277,7 @@ So when changing the `.Xresource` colors i3 should be restyled to match them wit
 having to change anything. These variables can also be used in other places throughout
 the i3 config file.
 
-**Resources**:
+**Resources**:    
 [Reddit - You Can Now use Xresources in i3](https://www.reddit.com/r/unixporn/comments/4if9xc/i3_you_can_now_use_x_resources_in_i3/)    
 [Github - Using i3 config with Xresources](https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/config)    
 
@@ -342,7 +342,7 @@ Adjust the border width and the padding, good for centering the menu:
     rofi.bw: 100
     rofi.padding: 100 100
 
-And finally set a colorscheme. There are a few options for this, you may use 
+And finally set a colorscheme. There are a few options for this, you may use
 [Base-16 Builder](https://github.com/base16-builder/base16-builder) the official
 [Theme Generator](https://davedavenport.github.io/rofi/p11-Generator.html), or you can
 create your own on sites such as [Terminal.sexy](https://terminal.sexy/), you can
@@ -478,13 +478,14 @@ add the following lines:
 [AUR - urxvt tabbedex mina86 git](https://aur.archlinux.org/packages/urxvt-tabbedex-mina86-git/)    
 [Github - urxvt Tabbedex](https://github.com/mina86/urxvt-tabbedex)    
 
+## Terminal Utilities
 ## Tmux
 Tmux is a terminal multiplexer. It allows for split panes and multiple terminal sessions. To
 install tmux use pacman:
 
     sudo pacman -S tmux
 
-## Colorscheme
+## Terminal Colorscheme
 ### Base-16-Shell
 To make it easy to change the terminals colorscheme between all of the different
 base-16 themes, Base-16 Shell is used. To install, follow the instructions:
@@ -515,7 +516,7 @@ This will print out the colors associated with a profile.
 **Resources:**    
 [Github - Base-16 Shell](https://github.com/chriskempson/base16-shell)    
 
-### Other Tweaks
+### Other Color Tweaks
 There a few other tweaks that are available to add more flair to the terminal.
 The first is adding a bit of color to pacman. We need to modify the `pacman.conf`:
 
@@ -528,10 +529,8 @@ Uncomment the following line (under `Misc options`):
 **Resources:**    
 [Arch Wiki - Color Output in Console](https://wiki.archlinux.org/index.php/Color_output_in_console)    
 
-
-# Vim/Neovim
-
-# Nerd Fonts
+## Terminal Font
+### Nerd Fonts
 In order for certain unicode symbold to appear in the terminal a patched font
 is required. Nerd fonts has a wide variety of patched fonts to choose from. To
 install them perform the following commands. I will be installing Source Code Pro from
@@ -560,6 +559,60 @@ press tab to see the available options:
 **Resources:**:    
 [Github - Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)    
 [AUR - Nerd Fonts Source Code Pro](https://aur.archlinux.org/nerd-fonts-source-code-pro.git)    
+
+# GTK Theme
+## Set GTK Colors
+Using base-16-builder (which was installed earlier) we can create GTK themes for
+the selected colorscheme. Enter the following to create the colorscheme for GTK2: 
+
+    base16-builder -s flat -b dark -t gtk-2 >> ~/.gtkrc-2.0
+ 
+Followed by this command for GTK3:
+
+    base16-builder -s flat -b dark -t gtk-3 >> ~/.config/gtk-3.0/gtk.css
+ 
+Note thet `>>` appends and `>` will overwrite, most likely it is best to use `>>`.
+
+**Resources:**
+[Make GTK Match Base16 Flat](https://www.reddit.com/r/unixporn/comments/4lp6fn/matching_gtk_theme_for_base16flat_theme/d3p2e8p/)    
+[Base16-Builder GTK Templates](https://github.com/base16-builder/base16-builder/commit/d54bb949e1d3a48fcf6a9ac772f7ca2f29e30e09)    
+[Base16-Builder](https://github.com/base16-builder/base16-builder)    
+
+## Lxappearance
+Lxappearance is a simple lightweight way to configure GTK themes, icons and a few other settings.
+To install use pacman:
+
+    sudo pacman -S lxappearance
+    
+Once installed it can be ran with the `lxappearance` command. No themes or icons have been installed yet
+so you can't do much yet, but we will install some next.
+
+**Resources:**
+[LXDE Wiki - lxappearance](https://wiki.lxde.org/en/LXAppearance)
+[Arch Wiki - GTK Configuration Tools](https://wiki.archlinux.org/index.php/GTK%2B#Configuration_tools)
+
+## Papirus Icons
+Papirus is a Material Design icon them forked from the Paper Icons theme. It has pretty
+complete coverage of most applications. To install enter the following in the terminal
+(to install into the root directory):
+
+    git clone https://aur.archlinux.org/papirus-icon-theme-git.git
+    cd papirus-icon-theme-git
+    makepkg -sri
+
+**Resources:**    
+[Github - Papirus Icon Theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)   
+[AUR - Papirus Icon Theme](https://aur.archlinux.org/packages/papirus-icon-theme-git/)    
+
+
+# TODO
+## Feh   
+## Nitrogen   
+## Maim  
+## ImageMagick  
+## nm-applet
+## Vim/Neovim
+
 
 # Even Better ls
 Even-better-ls is an awesome enahncement to the terminal that adds colors and
@@ -603,34 +656,3 @@ Once that is generated change the
 **Resources:**    
 [Github - Even Better ls](https://github.com/illinoisjackson/even-better-ls)    
 [Github - Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)    
-
-# Feh
-
-    
-# Nitrogen
-
-    
-# Maim
- 
-    
-# ImageMagick
- 
-    
-# nm-applet
-
-    
-# GTK Theme via lxappearance
-
-    
-# Theme options
-
-    
-# Papirus icons
-
-    
-
-
-
-
-  
-
