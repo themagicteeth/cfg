@@ -1,15 +1,46 @@
-nerdfonts
-even better ls
-feh
+dotfiles
+base16
+git
+curl
+wget
+npm
+
+xorg-xserver
+xorg-xinit
+xorg-xrdb
+base16-xresources
+
+i3-gaps
+i3blocks/polybar
+compton
+rofi
+dunst
+base16-builder
+
+zsh
+urxvt
+tabbedex
+tmux
+base16-shell
+
 nitrogen
-scrot/maim/imagemagick
+feh
+maim/imagemagick
 nm-applet
-color terminal
+
+lxappearance
+gtk-themes
+papirus
+
+nerdfonts
+even-better-ls
 
 
 
-Prerequisites
-==================================================================
+
+
+# Prerequisites
+
 The following was written using an Arch Linux system, so the intrsuctions
 will be written using Arch tools such as pacman and using the Arch linux
 directory structure.    
@@ -24,8 +55,7 @@ with the following command:
 
     sudo pacman -S git curl npm
 
-Display manager - Xorg
-==================================================================
+# Display manager - Xorg
 X is the display manager used. In order to use X the Xserver must be installed.
 Follow the instructions below to install xorg-server:
 
@@ -37,8 +67,7 @@ Follow the instructions below to install xorg-server:
 [Official Documentation](https://www.x.org/wiki/UserDocumentation/)    
 
 
-Xinit
-------------------------------------------------------------------
+## Xinit
 Xinit is installed next, this is what will start the 
 xserver. Follow the instructions to install xinit:
 
@@ -69,8 +98,7 @@ To automatically start the X server on login add the following to
 **Resources:**    
 [Arch Wiki - Xinit](https://wiki.archlinux.org/index.php/Xinitrc)    
 
-Xrdb (Xresources)
--------------------------------------------------------------------
+## Xrdb (Xresources)
 Xresources is what will set some user configurations for things like
 colors, and certain applications. Follow the instructions below to install
 Xresources:
@@ -98,8 +126,7 @@ made to the .Xresources. Add the command to the `~/.xinitrc` file to automatical
 [Github - Base-16 for Xresources](https://github.com/chriskempson/base16-xresources)    
 [.Xresources vs .Xdefaults](https://superuser.com/questions/243914/xresources-or-xdefaults)
 
-Window manager - i3 / i3-gaps
-=====================================================================
+# Window manager - i3 / i3-gaps
 i3 is the window manaager used, it is a tiling window manager. The i3-gaps fork is used instead of i3.
 Since I am using Arch Ian AUR package will be used to install it.
 Follow the instructions:
@@ -139,7 +166,9 @@ There are a few settings specific to i3-gaps that will be presented below:
     # Set inner outer gaps
     gaps inner 0
     gaps outer 0
-
+    
+To only show borders around windows if more than one is present:
+    
     # Only use borders if more than one container
     smart_borders on
 
@@ -162,15 +191,13 @@ keybind:
 [Arch Wiki - i3](https://wiki.archlinux.org/index.php/i3)    
 [AUR - i3-gaps](https://aur.archlinux.org/packages/i3-gaps/)    
 
-i3blocks - Status line for i3 (optional)
------------------------------------------------------------------------------
+## i3blocks - Status line for i3 (optional)
 Extensible via shell scripts. Adds a lot of functionality to
 the default i3 status bar. Install with the following command:
 
     sudo pacman -S i3blocks
 
-i3-style (optional)
------------------------------------------------------------------------------
+## i3-style (optional)
 i3-style is used to easily change the colorscheme of i3 to one of
 the included colorschemes. To use it npm must first be installed.
 To install i3-style follow the instructions:
@@ -194,8 +221,7 @@ the output to the themes directory:
 [Github - i3-style](https://github.com/acrisci/i3-style)    
 [Github - Base-16 for i3](https://github.com/khamer/base16-i3)    
 
-ZSH
-===========================================================================
+# ZSH
 ZSH is an alternative shell to bash. It is installed through pacman:
 
     sudo pacman -S zsh
@@ -218,8 +244,7 @@ Then change the default to the path of zsh:
 [Users Guide to Z-Shell](http://zsh.sourceforge.net/Guide/zshguide02.html)    
 [Changing Your Default Shell](https://wiki.archlinux.org/index.php/Command-line_shell#Changing_your_default_shell)    
 
-Oh My ZSH (optional)
---------------------------------------------------------------------------
+## Oh My ZSH (optional)
 Oh my ZSH is a set of plugins and enhancements to the ZSH shell. To install
 run the curl command:
 
@@ -235,8 +260,7 @@ To uninstall run:
 [Plugin Directory](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)    
 [Themes Screenshots](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)  
 
-Terminal - URxvt
-==========================================================================
+# Terminal - URxvt
 URxvt is an extremely customizable and lightweight terminal. In order for certain
 unicode glyphs to display properly a patched version must be installed. Follow the
 instructions below to install:
@@ -253,8 +277,7 @@ suggested tweaks to add:
 [Arch Wiki - rxvt-unicode](https://wiki.archlinux.org/index.php/rxvt-unicode)    
 [URxvt Xresource Options](http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod#RESOURCES)
 
-Tabbedex - Better tabs for URxvt
----------------------------------------------------------------------------
+# Tabbedex - Better tabs for URxvt
 Tabbedex is a Perl script that adds some nice additions to the tabbing functionality
 of urxvt. To install follow the directions:    
 
@@ -281,11 +304,13 @@ add the following lines:
 [AUR - urxvt tabbedex mina86 git](https://aur.archlinux.org/packages/urxvt-tabbedex-mina86-git/)    
 [Github - urxvt Tabbedex](https://github.com/mina86/urxvt-tabbedex)    
 
-Tmux
-=============================================================================
+# Tmux
+Tmux is a terminal multiplexer. It allows for split panes and multiple terminal sessions. To
+install tmux use pacman:
 
-Base-16
-==============================================================================
+    sudo pacman -S tmux
+
+# Base-16
 Base 16 is a set of colorschemes that can be applied to a range of applications.
 The first step is to go [here](https://chriskempson.github.io/base16/) and take
 some time to choose a color scheme you like. Be sure to remember the name of it.
@@ -301,8 +326,7 @@ references with their respective applications throughout the guide.
 [Github - Base-16](https://github.com/chriskempson/base16)    
 [Github - Base-16 Builder](https://github.com/base16-builder/base16-builder)    
 
-Base-16 Shell
-----------------------------------------------------------------------------
+## Base-16 Shell
 To make it easy to change the terminals colorscheme between all of the different
 base-16 themes, Base-16 Shell is used. To install, follow the instructions:
 
@@ -332,8 +356,7 @@ This will print out the colors associated with a profile.
 **Resources:**    
 [Github - Base-16 Shell](https://github.com/chriskempson/base16-shell)    
 
-Base-16 for Xresources
------------------------------------------------------------------------------
+## Base-16 for Xresources
 This will generate a colorscheme for Xresources to be used by many applications
 across the system. It not mandatory to use the commands found on the Github.
 It may be easier to just go to [the directory](https://github.com/chriskempson/base16-xresources/tree/master/xresources)
@@ -399,8 +422,7 @@ used as an example):
 **Resources:**    
 [Github - Base-16 for Xresources](https://github.com/chriskempson/base16-xresources)    
 
-Use .Xresources for i3 Colorscheme
-----------------------------------------------------------------------------
+### Use .Xresources for i3 Colorscheme
 Once the colorscheme is set up in `~/.Xresources` it is handy to set i3
 to use the same ones, so that when it is updated i3 will also be updated. In
 order to do this add the following to `~/.config/i3/config`:
@@ -443,8 +465,7 @@ the i3 config file.
 [Reddit - You Can Now use Xresources in i3](https://www.reddit.com/r/unixporn/comments/4if9xc/i3_you_can_now_use_x_resources_in_i3/)    
 [Github - Using i3 config with Xresources](https://github.com/Airblader/dotfiles-manjaro/blob/master/.i3/config)    
 
-Base-16 Builder (optional)
---------------------------------------------------------------------------
+## Base-16 Builder (optional)
 Base-16 Builder is an npm package that will automatically make colorschemes for
 many common applications (including Dunst, i3, Rofi, Xresources, etc.). To use
 it follow the command below, it must first be installed:
@@ -463,11 +484,9 @@ is `.config/dunst/dunstrc`
 **Resources:**    
 [Github - Base-16 Builder](https://github.com/base16-builder/base16-builder)    
 
-Vim/Neovim
-=======================================================================
+# Vim/Neovim
 
-Rofi
-========================================================================
+# Rofi
 Rofi is a simple utility that starts programs by allowing you to search for them. It is
 a drop in replacement for dmenu, and is very customizable. To install rofi follow the
 
@@ -522,8 +541,7 @@ transparency, you can also use plain hex color codes.
 [Rofi Config Options](https://gist.github.com/PrimordialHelios/f6184fe7868835ad65d3)    
 [Terminal.sexy](https://terminal.sexy/)    
 
-Compton
-=========================================================================
+# Compton
 Compton is a standalone composite manager. It adds things like shadows to
 windows.
 
@@ -539,8 +557,7 @@ To automatically start compton on the start of i3, add the following to
 [Github - Compton](https://github.com/chjj/compton)    
 
 
-Dunst
-==========================================================================
+# Dunst
 Dunst is a notification daemon like what is seen on most distros. It is very lighweitght 
 and customizable. To install dunst follow the instructions:
 
@@ -564,8 +581,7 @@ i3 configuration file, `~/.config/i3/config`:
 [Arch Wiki - Dunst](https://wiki.archlinux.org/index.php/Dunst)    
 [Github - Base-16 Dunst](https://github.com/khamer/base16-dunst)    
 
-Nerd Fonts
-==========================================================================
+# Nerd Fonts
 In order for certain unicode symbold to appear in the terminal a patched font
 is required. Nerd fonts has a wide variety of patched fonts to choose from. To
 install them perform the following commands. I will be installing Source Code Pro from
@@ -595,8 +611,7 @@ press tab to see the available options:
 [Github - Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)    
 [AUR - Nerd Fonts Source Code Pro](https://aur.archlinux.org/nerd-fonts-source-code-pro.git)    
 
-Even Better ls
-==========================================================================
+# Even Better ls
 Even-better-ls is an awesome enahncement to the terminal that adds colors and
 icons for file extensions. It requires a patched font to be installed from [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 and that your terminals font is set to use it. To get this awesomeness run the following command:
@@ -639,33 +654,32 @@ Once that is generated change the
 [Github - Even Better ls](https://github.com/illinoisjackson/even-better-ls)    
 [Github - Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)    
 
-Feh
-==========================================================================
+# Feh
+
     
-Nitrogen
-==========================================================================
+# Nitrogen
+
     
-Maim
-========================================================================== 
+# Maim
+ 
     
-ImageMagick
-========================================================================== 
+# ImageMagick
+ 
     
-nm-applet
-==========================================================================
+# nm-applet
+
     
-GTK Theme via lxappearance
-==========================================================================
+# GTK Theme via lxappearance
+
     
-Theme options
---------------------------------------------------------------------------
+# Theme options
+
     
-Papirus icons
---------------------------------------------------------------------------
+# Papirus icons
+
     
 
-Terminal Colors
-===========================================================================
+# Terminal Colors
 There a few other tweaks that are available to add more flair to the terminal.
 The first is adding a bit of color to pacman. We need to modify the `pacman.conf`:
 
@@ -677,9 +691,5 @@ Uncomment the following line (under `Misc options`):
 
 **Resources:**    
 [Arch Wiki - Color Output in Console](https://wiki.archlinux.org/index.php/Color_output_in_console)    
-
-terminal colors
-================
-https://wiki.archlinux.org/index.php/Bash/Prompt_customization    
-https://terminal.sexy/    
+  
 
