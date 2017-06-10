@@ -1,22 +1,3 @@
-Prerequisites
-Xorg
-    Xinit
-    Xresources
-i3
-    i3blocks
-    i3style
-urxvt
-    tebbedex
-zsh
-    ohmyzsh
-base16
-    base16shell
-    base16xresources
-    base16builder
-vim/neovim
-rofi
-compton
-dunst
 nerdfonts
 even better ls
 feh
@@ -43,7 +24,7 @@ with the following command:
 
     sudo pacman -S git curl npm
 
-Xorg
+Display manager - Xorg
 ==================================================================
 X is the display manager used. In order to use X the Xserver must be installed.
 Follow the instructions below to install xorg-server:
@@ -117,7 +98,7 @@ made to the .Xresources. Add the command to the `~/.xinitrc` file to automatical
 [Github - Base-16 for Xresources](https://github.com/chriskempson/base16-xresources)    
 [.Xresources vs .Xdefaults](https://superuser.com/questions/243914/xresources-or-xdefaults)
 
-i3 / i3-gaps
+Window manager - i3 / i3-gaps
 =====================================================================
 i3 is the window manaager used, it is a tiling window manager. The i3-gaps fork is used instead of i3.
 Since I am using Arch Ian AUR package will be used to install it.
@@ -181,7 +162,7 @@ keybind:
 [Arch Wiki - i3](https://wiki.archlinux.org/index.php/i3)    
 [AUR - i3-gaps](https://aur.archlinux.org/packages/i3-gaps/)    
 
-i3blocks
+i3blocks - Status line for i3 (optional)
 -----------------------------------------------------------------------------
 Extensible via shell scripts. Adds a lot of functionality to
 the default i3 status bar. Install with the following command:
@@ -212,6 +193,96 @@ the output to the themes directory:
 [i3-style Website](https://dubstepdish.com/blog/2013/11/06/introducing-i3-style/)    
 [Github - i3-style](https://github.com/acrisci/i3-style)    
 [Github - Base-16 for i3](https://github.com/khamer/base16-i3)    
+
+ZSH
+===========================================================================
+ZSH is an alternative shell to bash. It is installed through pacman:
+
+    sudo pacman -S zsh
+
+This installs the shell, there are a couple nice features that are in seperate
+packages (also installed through pacman):
+
+    sudo pacman -S zsh-completions zsh-syntax-highlighting
+
+To set zsh as the default shell first list all available shells:
+
+    chsh -l
+
+Then change the default to the path of zsh:
+
+    sudo chsh -s /usr/bin/zsh
+
+**Resources**:    
+[Arch Wiki - ZSH](https://wiki.archlinux.org/index.php/zsh)    
+[Users Guide to Z-Shell](http://zsh.sourceforge.net/Guide/zshguide02.html)    
+[Changing Your Default Shell](https://wiki.archlinux.org/index.php/Command-line_shell#Changing_your_default_shell)    
+
+Oh My ZSH (optional)
+--------------------------------------------------------------------------
+Oh my ZSH is a set of plugins and enhancements to the ZSH shell. To install
+run the curl command:
+
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+To uninstall run:
+
+    uninstall_oh_my_zsh
+
+**Resources:**    
+[Oh-My-Zsh Website](http://ohmyz.sh/)    
+[Github - Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh)    
+[Plugin Directory](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)    
+[Themes Screenshots](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)  
+
+Terminal - URxvt
+==========================================================================
+URxvt is an extremely customizable and lightweight terminal. In order for certain
+unicode glyphs to display properly a patched version must be installed. Follow the
+instructions below to install:
+
+    git clone https://aur.archlinux.org/rxvt-unicode-cvs-patched-wideglyphs.git
+    cd rxvt-unicode-cvs-patched-wideglyphs
+    makepkg -sri
+
+URxvt uses the .Xresources file for much of the customization. Below are a few
+suggested tweaks to add:
+
+**Resources:**    
+[AUR rxvt Patched](https://wiki.archlinux.org/index.php/Color_output_in_console)    
+[Arch Wiki - rxvt-unicode](https://wiki.archlinux.org/index.php/rxvt-unicode)    
+[URxvt Xresource Options](http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod#RESOURCES)
+
+Tabbedex - Better tabs for URxvt
+---------------------------------------------------------------------------
+Tabbedex is a Perl script that adds some nice additions to the tabbing functionality
+of urxvt. To install follow the directions:    
+
+    git clone https://aur.archlinux.org/packages/urxvt-tabbedex-mina86-git/
+    cd urxvt-tabbedex-mina86-git
+    makepkg -sri
+
+There are a few options to be configured for tabbedex. Open `~/.Xresources` and
+add the following lines:
+
+    URxvt.perl-ext-common:      default,matcher,tabbedex
+    URxvt.tabbed.new-button:    yes
+    URxvt.tabbed.autohide:      yes
+    URxvt.tabbed.tabbar-fg:     14
+    URxvt.tabbed.tabbar-bg:     0
+    URxvt.tabbed.tab-fg:        14
+    URxvt.tabbed.tab-bg:        0
+    URxvt.tabbed.title:         no
+
+**Resources:**    
+[rxvt-unicode](https://software.schmorp.de/pkg/rxvt-unicode.html)    
+[rxvt-unicode FAQs](http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.7.pod)    
+[Using and Customizing URxvt](http://www.askapache.com/linux/rxvt-xresources/)    
+[AUR - urxvt tabbedex mina86 git](https://aur.archlinux.org/packages/urxvt-tabbedex-mina86-git/)    
+[Github - urxvt Tabbedex](https://github.com/mina86/urxvt-tabbedex)    
+
+Tmux
+=============================================================================
 
 Base-16
 ==============================================================================
@@ -392,6 +463,9 @@ is `.config/dunst/dunstrc`
 **Resources:**    
 [Github - Base-16 Builder](https://github.com/base16-builder/base16-builder)    
 
+Vim/Neovim
+=======================================================================
+
 Rofi
 ========================================================================
 Rofi is a simple utility that starts programs by allowing you to search for them. It is
@@ -490,52 +564,6 @@ i3 configuration file, `~/.config/i3/config`:
 [Arch Wiki - Dunst](https://wiki.archlinux.org/index.php/Dunst)    
 [Github - Base-16 Dunst](https://github.com/khamer/base16-dunst)    
 
-URxvt
-==========================================================================
-URxvt is an extremely customizable and lightweight terminal. In order for certain
-unicode glyphs to display properly a patched version must be installed. Follow the
-instructions below to install:
-
-    git clone https://aur.archlinux.org/rxvt-unicode-cvs-patched-wideglyphs.git
-    cd rxvt-unicode-cvs-patched-wideglyphs
-    makepkg -sri
-
-URxvt uses the .Xresources file for much of the customization. Below are a few
-suggested tweaks to add:
-
-**Resources:**    
-[AUR rxvt Patched](https://wiki.archlinux.org/index.php/Color_output_in_console)    
-[Arch Wiki - rxvt-unicode](https://wiki.archlinux.org/index.php/rxvt-unicode)    
-[URxvt Xresource Options](http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod#RESOURCES)
-
-Tabbedex
----------------------------------------------------------------------------
-Tabbedex is a Perl script that adds some nice additions to the tabbing functionality
-of urxvt. To install follow the directions:    
-
-    git clone https://aur.archlinux.org/packages/urxvt-tabbedex-mina86-git/
-    cd urxvt-tabbedex-mina86-git
-    makepkg -sri
-
-There are a few options to be configured for tabbedex. Open `~/.Xresources` and
-add the following lines:
-
-    URxvt.perl-ext-common:      default,matcher,tabbedex
-    URxvt.tabbed.new-button:    yes
-    URxvt.tabbed.autohide:      yes
-    URxvt.tabbed.tabbar-fg:     14
-    URxvt.tabbed.tabbar-bg:     0
-    URxvt.tabbed.tab-fg:        14
-    URxvt.tabbed.tab-bg:        0
-    URxvt.tabbed.title:         no
-
-**Resources:**    
-[rxvt-unicode](https://software.schmorp.de/pkg/rxvt-unicode.html)    
-[rxvt-unicode FAQs](http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.7.pod)    
-[Using and Customizing URxvt](http://www.askapache.com/linux/rxvt-xresources/)    
-[AUR - urxvt tabbedex mina86 git](https://aur.archlinux.org/packages/urxvt-tabbedex-mina86-git/)    
-[Github - urxvt Tabbedex](https://github.com/mina86/urxvt-tabbedex)    
-
 Nerd Fonts
 ==========================================================================
 In order for certain unicode symbold to appear in the terminal a patched font
@@ -611,46 +639,30 @@ Once that is generated change the
 [Github - Even Better ls](https://github.com/illinoisjackson/even-better-ls)    
 [Github - Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)    
 
-ZSH
-===========================================================================
-ZSH is an alternative shell to bash. It is installed through pacman:
-
-    sudo pacman -S zsh
-
-This installs the shell, there are a couple nice features that are in seperate
-packages (also installed through pacman):
-
-    sudo pacman -S zsh-completions zsh-syntax-highlighting
-
-To set zsh as the default shell first list all available shells:
-
-    chsh -l
-
-Then change the default to the path of zsh:
-
-    sudo chsh -s /usr/bin/zsh
-
-**Resources**:    
-[Arch Wiki - ZSH](https://wiki.archlinux.org/index.php/zsh)    
-[Users Guide to Z-Shell](http://zsh.sourceforge.net/Guide/zshguide02.html)    
-[Changing Your Default Shell](https://wiki.archlinux.org/index.php/Command-line_shell#Changing_your_default_shell)    
-
-Oh My ZSH (optional)
+Feh
+==========================================================================
+    
+Nitrogen
+==========================================================================
+    
+Maim
+========================================================================== 
+    
+ImageMagick
+========================================================================== 
+    
+nm-applet
+==========================================================================
+    
+GTK Theme via lxappearance
+==========================================================================
+    
+Theme options
 --------------------------------------------------------------------------
-Oh my ZSH is a set of plugins and enhancements to the ZSH shell. To install
-run the curl command:
-
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-To uninstall run:
-
-    uninstall_oh_my_zsh
-
-**Resources:**    
-[Oh-My-Zsh Website](http://ohmyz.sh/)    
-[Github - Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh)    
-[Plugin Directory](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)    
-[Themes Screenshots](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)    
+    
+Papirus icons
+--------------------------------------------------------------------------
+    
 
 Terminal Colors
 ===========================================================================
