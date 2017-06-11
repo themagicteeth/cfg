@@ -1,6 +1,6 @@
 ! Xft settings
 Xft.dpi:                    96
-Xft.antialias:              true
+Xft.antialias:             true 
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle:              hintslight
@@ -12,12 +12,11 @@ URxvt.transparent:          false
 URxvt.fading:               0
 URxvt.loginShell:           true
 URxvt.internalBorder:       10
-
+/* URxvt.buffered:             false */
 URxvt.allow_bold:           false
 
-URxvt*font:                 xft:SauceCodePro Nerd Font:style=Regular:size=10, \
+URxvt*font:                 xft:SauceCodePro Nerd Font:style=Regular:size=11, \
                             xft:DejaVu Sans Mono:style=Book:antialias=false:size=12
-
 
 URxvt*letterSpace:          -1
 URxvt.lineSpace:            0
@@ -101,32 +100,19 @@ URxvt.matcher.rend.0:       Uline Bold fg5
 
 ! Rofi
 rofi.font: Roboto Light 15
-
-rofi.fixed-num-lines: true 
-/* rofi.lines: 1 */
+! Line heigh
 rofi.eh: 2
-
-rofi.fullscreen: true 
-/* rofi.width:25 */ 
+! Border width and padding
 rofi.bw: 100 
 rofi.padding: 100 100
-/* rofi.padding: $(($(xwininfo -root |awk '/Height/ { print $2}')/2)) */
+! Fullscreen rofi with desktop background
+rofi.fullscreen: true 
 rofi.fake-transparency: true
 rofi.fake-background: screenshot
-
+! Rofi colors
 rofi.color-enabled: true
 rofi.color-window: argb:d12c3e50, argb:0e74c3c, argb:02c3e50
 rofi.color-normal: argb:02c3e50, #e0e0e0, argb:02c3e50, argb:d79b59b6, #e0e0e0
 rofi.color-active: argb:02c3e50, #3498db, argb:4a2c3e50, argb:d13498db, #e0e0e0
 rofi.color-urgent: argb:02c3e50, #e74c3c, argb:5f2c3e50, argb:cce74c3c, #e0e0e0
-
-
-
-
-
-
-
-
-
-
 

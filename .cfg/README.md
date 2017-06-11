@@ -652,6 +652,24 @@ To uninstall run:
 [Plugin Directory](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)    
 [Themes Screenshots](https://github.com/robbyrussell/oh-my-zsh/wiki/themes)    
 
+Nitrogen
+==========================================================================
+Nitrogen is a fast and lightweight background browser and setter for the X windows
+system. It makes it very simple to set permenant wallpapers. To install nitrogen
+use pacman:
+
+    sudo pacman -S nitrogen
+
+Once installed type the `nitrogen` command into your terminal and select a background.
+To make sure that nitrogen reloads every session (it will remember the last wallpaper
+you had set) add the following to `~/.config/i3/config`:
+
+    nitrogen --restore &
+
+**Resources:**    
+[Arch Wiki - Nitrogen](https://wiki.archlinux.org/index.php/nitrogen)    
+
+
 Terminal Colors
 ===========================================================================
 There a few other tweaks that are available to add more flair to the terminal.

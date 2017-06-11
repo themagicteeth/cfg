@@ -142,31 +142,33 @@ bindsym $mod+r mode "resize"
 bindsym $mod+p gaps inner current set 10; gaps outer current set 10;
 bindsym $mod+o gaps inner current set 0; gaps outer current set 0;
 
+
 # Set inner outer gaps
 gaps inner 0
 gaps outer 0
 
 # Only use borders if more than one container
 smart_borders on
-
+exec_always --no-startup-id killall polybar; polybar example
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # i3bar
-bar {
-    status_command          i3blocks -c ~/.config/i3/i3blocks.conf
-    tray_output             primary
-    position                bottom
-    separator_symbol        "·"
-    workspace_buttons       yes
+# bar {
+#     status_command          i3blocks -c ~/.config/i3/i3blocks.conf
+#     tray_output             primary
+#     position                bottom
+#     separator_symbol        "·"
+#     workspace_buttons       yes
 
-    colors {
-        separator           $base05
-        background          $base00
-        statusline          $base00
-        focused_workspace   $base05 $base0D $base00
-        active_workspace    $base05 $base03 $base00
-        inactive_workspace  $base03 $base01 $base05
-        urgent_workspace    $base08 $base08 $base00
-   }
-}
+#     colors {
+#         separator           $base05
+#         background          $base00
+#         statusline          $base00
+#         focused_workspace   $base05 $base0D $base00
+#         active_workspace    $base05 $base03 $base00
+#         inactive_workspace  $base03 $base01 $base05
+#         urgent_workspace    $base08 $base08 $base00
+#    }
+# }
 for_window [class="^.*"] border pixel 5
 
 # Applications to autostart
@@ -175,9 +177,19 @@ exec --no-startup-id compton
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id dunst &
 
+# https://www.reddit.com/r/i3wm/comments/40jqad/how_can_i_exec_as_a_floating_window/czwo9cd/
+for_window [class="Spacefmf" instance="spacefm"] floating enable, border normal
+bindsym $mod+Shift+f exec --no-startup-id /usr/bin/spacefm -n && sleep .1 && xdotool set_window --class Spacefmf $(xdotool getwindowfocus)
+
 # Screenshots
 bindsym Print exec "import -window root ~/Pictures/Screenshots/$(date +%s).png"
 bindsym $mod+Print --release exec "import ~/Pictures/Screenshots/$(date +%s).png"
+
+# volume control
+# bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+# bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
+# bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+
 
 # Property Name         Border  | BG Text | Indicator | Child | Border
 client.focused          $base0D   $base0D   $base00    $base0D  $base0D
