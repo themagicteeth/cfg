@@ -203,6 +203,7 @@ user_pref("security.ssl3.dhe_rsa_aes_128_sha", false);
 user_pref("security.ssl3.dhe_rsa_aes_256_sha", false);
 user_pref("sidebar.position_start", false);
 user_pref("social.directories", "");
+user_pref("social.enabled", false);
 user_pref("social.remote-install.enabled", false);
 user_pref("social.share.activationPanelEnabled", false);
 user_pref("social.shareDirectory", "");
