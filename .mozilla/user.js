@@ -201,6 +201,7 @@ user_pref("security.ssl.errorReporting.url", "");
 user_pref("security.ssl.treat_unsafe_negotiation_as_broken", true);
 user_pref("security.ssl3.dhe_rsa_aes_128_sha", false);
 user_pref("security.ssl3.dhe_rsa_aes_256_sha", false);
+user_pref("sidebar.position_start", false);
 user_pref("social.directories", "");
 user_pref("social.remote-install.enabled", false);
 user_pref("social.share.activationPanelEnabled", false);
