@@ -1,7 +1,6 @@
 [colors]
-background = ${xrdb:color0:#222}
-background-alt= ${xrdb:color18:#222}
 foreground = ${xrdb:color7:#222}
+background = ${xrdb:color2:#222}
 foreground-alt = ${xrdb:color7:#222}
 primary = ${xrdb:color4:#222}
 secondary = #e60053
@@ -36,11 +35,7 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
- font-0 = fixed:pixelsize=9;1
-; font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-; font-2 = siji:pixelsize=10;1
-; font-1 = SauceCodePro:size=2;1
-; font-1 = FontAwesome:pixelsize=12;0
+font-0 = fixed:pixelsize=9;1
 
 modules-left = i3
 modules-center = 
@@ -48,10 +43,7 @@ modules-right = filesystem volume memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 2
-;tray-transparent = true
-;tray-background = #0063ff
 
-;wm-restack = bspwm
 wm-restack = i3
 
 ;override-redirect = true
@@ -130,28 +122,6 @@ label-visible-padding = ${self.label-focused-padding}
 label-urgent = %index%
 label-urgent-background = ${module/bspwm.label-urgent-background}
 label-urgent-padding = ${module/bspwm.label-urgent-padding}
-
-; [module/xbacklight]
-; type = internal/xbacklight
-
-; format = <label> <bar>
-; label = BL
-
-; bar-width = 10
-; bar-indicator = |
-; bar-indicator-foreground = #ff
-; bar-indicator-font = 2
-; bar-fill = ─
-; bar-fill-font = 2
-; bar-fill-foreground = #9f78e1
-; bar-empty = ─
-; bar-empty-font = 2
-; bar-empty-foreground = ${colors.foreground-alt}
-
-; [module/backlight-acpi]
-; inherit = module/xbacklight
-; type = internal/backlight
-; card = intel_backlight
 
 [module/cpu]
 type = internal/cpu

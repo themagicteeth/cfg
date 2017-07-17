@@ -2,7 +2,21 @@ set nocompatible
 
 let mapleader=","
 
+if empty(glob('~/.config/nvim/plug.vim'))
+  silent !curl -fLo ~/.config//nvim/autoload/plug.vim --create-dirs
+  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    augroup PLUG
+        au!
+        autocmd VimEnter * PlugInstall
+    augroup END
+endif
+
 call plug#begin('~/.config/nvim/plugged')
+
+Plug 'dylanaraps/wal'
+
+Plug 'gregsexton/matchtag'
 
 Plug 'tpope/vim-vinegar'
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
@@ -27,7 +41,7 @@ let g:prosession_on_startup = 1
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1 
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_skip_empty_sections = 1
 
@@ -35,9 +49,8 @@ Plug 'slashmili/alchemist.vim',{ 'for': 'elixir' }
 
 Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
 
-" Plug 'flazz/vim-colorschemes'
-Plug 'chriskempson/base16-vim'
-let base16colorspace=256
+Plug 'alvan/vim-closetag'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
 
 Plug 'sheerun/vim-polyglot'
 
@@ -51,12 +64,22 @@ let g:rainbow_active = 1
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 
+Plug 'mattn/emmet-vim'
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
 
 Plug 'zchee/deoplete-jedi', { 'for': 'python'}
+
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+let g:tern_request_timeout = 1
+let g:tern#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue'
+                \ ]
 
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
@@ -74,11 +97,7 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
 call plug#end()
 
-" Colors
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+colorscheme wal
 
 " Don't list completetion menu messages
 set shortmess+=c
@@ -95,9 +114,9 @@ set showcmd
 
 " Tabs and indeneting
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 filetype indent on
 
 " Error sounds
@@ -106,7 +125,7 @@ set novisualbell
 set tm=500
 
 " Line numbers
-set number
+" set number
 
 " Highlight matching brackets
 set showmatch
@@ -160,19 +179,36 @@ set undofile
 set undodir=$HOME/.config/nvim/files/undo/
 set viminfo='100,n$HOME/.config/nvim/files/info/viminfo'
 
+" Make the folders automatically if they don't already exist.
+if !isdirectory(expand(&backupdir))
+  call mkdir(expand(&backupdir), 'p')
+endif
+
+if !isdirectory(expand(&undodir))
+  call mkdir(expand(&undodir), 'p')
+endif
+
+if !isdirectory(expand(&directory))
+  call mkdir(expand(&directory), 'p')
+endif
+
+
+function! BetterBufferNav(bcmd)
+  if &modifiable == 1 || &filetype ==? 'help'
+    execute a:bcmd
+  endif
+endfunction
+
+" Maps Tab and Shift Tab to cycle through buffers
+nmap <silent> <Tab> :call BetterBufferNav("bn") <Cr>
+nmap <silent> <S-Tab> :call BetterBufferNav("bp") <Cr>
+
 " Dont unselect text after indenting
 vnoremap < <gv
 vnoremap > >gv
 
-" Highlight last inserted text
-nnoremap gV `[v`]
-
 " Change to buffers current working directory
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
-
-" Navigate opening and closing tags/brackets with <Tab>
-nnoremap <tab> %
-vnoremap <tab> %
 
 " Fast saving and quitting
 nmap <leader>w :w!<CR>
