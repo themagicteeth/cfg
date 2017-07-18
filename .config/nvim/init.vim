@@ -22,10 +22,12 @@ Plug 'tpope/vim-vinegar'
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_special_syntax = 1
 
-" Plug 'nathanaelkane/vim-indent-guides'
-" let g:indent_guides_start_level = 2
-" let g:indent_guides_guide_size = 1
-" let g:indent_guides_enable_on_vim_startup = 1
+Plug 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=blue
 
 Plug 'tpope/vim-unimpaired'
 
