@@ -39,6 +39,8 @@ alias ..="cd .."
 export EDITOR="nvim"
 alias vim="nvim"
 
+alias cat="ccat"
+
 # Start php server
 alias startphp="php -S localhost:8000"
 
