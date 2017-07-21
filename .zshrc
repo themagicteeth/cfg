@@ -23,7 +23,8 @@ alias vdir="run_vdir"
 alias diff='diff --color=auto'
 alias df="dfc"
 alias grep='grep --color=auto'
-#
+# alias curl='http'
+
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 # Config command for dotfiles
@@ -34,6 +35,7 @@ alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias cd..="cd .."
 alias cd.="cd .."
 alias ..="cd .."
+alias tarx="tar -xvf"
 
 # Nvim instead of vim
 export EDITOR="nvim"
